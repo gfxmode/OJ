@@ -9,9 +9,14 @@ using namespace std;
 class OJ
 {
 public:
-	OJ(void);
-	~OJ(void);
+	OJ(void){};
+	~OJ(void){};
 
-	string longestPalindrome(string s);
+	string longestPalindrome(string s)
+	{
+		string result = "";
+
+		return result;
+	}
 };
 #endif OJ_H

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="OJ">
+      <UniqueIdentifier>{8fe6ae9b-4d21-437d-9dfe-bcda79093933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestCase">
+      <UniqueIdentifier>{074191ff-da40-4737-a029-142d64cdfcda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OJTest.cpp">
+      <Filter>TestCase</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OJTest.h">
+      <Filter>TestCase</Filter>
+    </ClInclude>
+    <ClInclude Include="OJ.h">
+      <Filter>OJ</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
