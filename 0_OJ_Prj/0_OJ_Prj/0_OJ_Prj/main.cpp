@@ -6,7 +6,7 @@ int main()
 	CppUnit::TextUi::TestRunner runner;
 	CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry("OJTest");
 	runner.addTest(registry.makeTest());
-	runner.run();
+	bool wasSucessful = runner.run();
 
-	return 0;
+	return wasSucessful ? 0 : 1;
 } 
