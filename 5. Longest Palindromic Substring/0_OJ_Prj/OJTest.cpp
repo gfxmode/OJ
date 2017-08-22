@@ -5,7 +5,8 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(OJTest, "OJTest");
 
 void OJTest::testCase01()
 {
-	// 这里对Demo类进行测试，可以使用CPPUNIT_ASSERT、CPPUNIT_ASSERT_EQUAL等来断言
-	OJ objOJ;
-	CPPUNIT_ASSERT_EQUAL((string)("bab"), objOJ.longestPalindrome("babad"));
+    // 这里对Demo类进行测试，可以使用CPPUNIT_ASSERT、CPPUNIT_ASSERT_EQUAL等来断言
+    OJ objOJ;
+    //CPPUNIT_ASSERT_EQUAL((string)("aba"), objOJ.longestPalindrome("babad"));
+    CPPUNIT_ASSERT_EQUAL((string)("bb"), objOJ.longestPalindrome("cbbd"));
 } 
