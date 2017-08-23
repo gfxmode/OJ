@@ -15,6 +15,7 @@ public:
     int maxSubArray(vector<int>& nums) {
         int thisSum = nums[0];
         int maxSum = nums[0];
+        // dp[n] = max(0, dp[n - 1]) + nums[n]
         for (unsigned int i = 1; i < nums.size(); i++)
         {
             if (thisSum < 0)
