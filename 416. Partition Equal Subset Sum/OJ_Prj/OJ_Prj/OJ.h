@@ -27,16 +27,15 @@ public:
         {
             return false;
         }
-
-        int arrDp[1000] = {0};
-        arrDp[0] = 1;
+        vector<int> vecDp = vector<int>((sum / 2) + 1, 0);
+        vecDp[0] = 1;
 
         for(int i = 0; i < nums.size(); i++)
         {  
             for(int j = sum/2; j >= nums[i]; j--)
-                arrDp[j] = arrDp[j] || arrDp[j-nums[i]];
+                vecDp[j] = vecDp[j] || vecDp[j-nums[i]];
         }  
-        return arrDp[sum/2];
+        return vecDp[sum/2];
     }
 };
 #endif OJ_H

@@ -16,7 +16,7 @@ void OJTest::testCase02()
 {
     // 这里对Demo类进行测试，可以使用CPPUNIT_ASSERT、CPPUNIT_ASSERT_EQUAL等来断言
     OJ objOJ;
-    int arrInt[4] = {1, 2, 3, 5};
+    int arrInt[4] = {1000, 1000, 1000, 1000};
     vector<int> vecInt(arrInt, arrInt + 4);
-    CPPUNIT_ASSERT_EQUAL(false, objOJ.canPartition(vecInt));
+    CPPUNIT_ASSERT_EQUAL(true, objOJ.canPartition(vecInt));
 }
