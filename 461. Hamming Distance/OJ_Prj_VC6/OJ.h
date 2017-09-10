@@ -23,12 +23,10 @@ public:
     */
     int hammingDistance(int x, int y)
     {
-        bitset<MAX_INT_BIT> bsX (x);
-        bitset<MAX_INT_BIT> bsY (y);
-
-        bsY = bsX ^ bsY;
+        int z = x ^ y;
+        bitset<MAX_INT_BIT> bsZ (z);
         // returns count of bits that are set to 1
-        return bsY.count();
+        return bsZ.count();
     }
 };
 #endif OJ_H
