@@ -13,7 +13,11 @@ public:
     
     // Inital a list with head value
     ListNode(int x) : val(x), next(NULL) {}
-    // Inital a list by array
+    /*
+        功能：使用数组初使化单链表
+        入参：ptrStart[IN]，数组头指针
+                num[IN]，数组元素个数
+    */
     ListNode(int* ptrStart, int num)
     {
         if ((NULL == ptrStart) || (num < 1))
