@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <bitset>
 
 using namespace std;
+#define MAX_INT_BIT 32
 
 class OJ
 {
@@ -12,11 +14,24 @@ public:
     OJ(void){};
     ~OJ(void){};
 
-    string longestPalindrome(string s)
+    int findComplement(int num)
     {
-        string result = "";
+        bitset<MAX_INT_BIT> bsInput(~num);
+        bitset<MAX_INT_BIT> bsResult(0);
+        bool isZeroFound = false;
+        for (int i = (MAX_INT_BIT - 1); i >= 0 ; --i)
+        {
+            if (0 == bsInput[i])
+            {
+                isZeroFound = true;
+            }
+            if (isZeroFound)
+            {
+                bsResult[i] = bsInput[i];
+            }
+        }
 
-        return result;
+        return (int)(bsResult.to_ulong());
     }
 };
 #endif OJ_H

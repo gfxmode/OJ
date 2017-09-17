@@ -7,5 +7,6 @@ void OJTest::testCase01()
 {
     // 这里对Demo类进行测试，可以使用CPPUNIT_ASSERT、CPPUNIT_ASSERT_EQUAL等来断言
     OJ objOJ;
-    CPPUNIT_ASSERT_EQUAL((string)("bab"), objOJ.longestPalindrome("babad"));
+    int count = objOJ.findComplement(1);
+    CPPUNIT_ASSERT_EQUAL(0, count);
 } 
