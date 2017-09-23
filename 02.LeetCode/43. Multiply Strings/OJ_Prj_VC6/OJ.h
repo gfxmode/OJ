@@ -54,10 +54,6 @@ public:
             *ptrTmp = iValue;
             ++ptrTmp;
             ++cntLen;
-            if (((cntLen >= (iLen1 + iLen2 - 1)) && (0 == *ptrTmp)))
-            {
-                break;
-            }
         }
 
         if (iCarray > 0)
@@ -87,7 +83,22 @@ public:
             }
             ptrRet[cntLen] = '\0';
         }
-        string strRet = ptrRet;
+        // 删除头部多余的0。从首部开始找不等于'0'的字符，ptrRet加了idx索引，以删除多余0
+        int idx = 0;
+        for (idx = 0; idx < cntLen; ++idx)
+        {
+            if ('0' != ptrRet[idx])
+            {
+                break;
+            }
+        }
+
+        string strRet = ptrRet + idx;
+        // 全部为0会被清空，这里再次补0
+        if (strRet == "")
+        {
+            strRet = "0";
+        }
         // 释放指针
         free(ptrRet);
 
