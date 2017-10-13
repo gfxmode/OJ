@@ -21,35 +21,32 @@ public:
         stack<int> stackInt;    // 存放各位数字，栈
         
         uint uiTemp = uiTmp;
-        int iCnt = 0;           // 数字位数计数
         while(uiTemp != 0)
         {
             int iRes = (uiTemp % 10);
             stackInt.push(iRes);
             uiTemp /= 10;
-            
-            ++iCnt;
         }
 
-        uint uiRet = 0;
-        --iCnt;             // while循环运行完后会多加1，这里进行修正
+        unsigned long long ullRet = 0;  // 使用unsigned long long来存放中间计算结果
+        int i = 0;                      // 字符位置计数
         while(!stackInt.empty())
         {
-            uiRet += stackInt.top() * pow(10, iCnt);
+            ullRet += stackInt.top() * pow(10, i);
             stackInt.pop();
             
-            --iCnt;
+            ++i;
         }
 
         uint uiLimit = (isNegtiveNum) ? abs(INT32_MIN) : abs(INT32_MAX);
         int iRet = 0;
-        if(uiRet > uiLimit)
+        if(ullRet > uiLimit)
         {
             return 0;
         }
         else
         {
-            iRet = uiRet * ((isNegtiveNum) ? (-1) : 1);
+            iRet = ullRet * ((isNegtiveNum) ? (-1) : 1);
         }
         return iRet;
     }
