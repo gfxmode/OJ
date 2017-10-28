@@ -17,6 +17,7 @@ void CDijkstra::init()
 {
     m_vecS.clear();
     m_vecU.clear();
+    memset(m_arrPrev, MAX_ROUTE_DIST, sizeof(int) * MAX_POINT_NUM);
     memset(m_arrRoute, MAX_ROUTE_DIST, sizeof(int) * MAX_POINT_NUM * MAX_POINT_NUM);
 }
 
@@ -28,7 +29,7 @@ void CDijkstra::init()
     返回值：bool
             true：路线已存在
             false：路线不存在
-*/ 
+*/
 bool CDijkstra::isRouteExist(int id1, int id2)
 {
     // 若不是最大距离，则路线已存在
@@ -47,7 +48,7 @@ bool CDijkstra::isRouteExist(int id1, int id2)
             true：点已存在
             false：点不存在
 */
-bool CDijkstra::isPointExist(int id, vector<int> &vecU)
+bool CDijkstra::isPointExist(int id, VecInt& vecU)
 {
     int sizeVec = vecU.size();
     for (int i = 0; i < sizeVec; ++i)
@@ -66,9 +67,9 @@ bool CDijkstra::isPointExist(int id, vector<int> &vecU)
     入参：
         id[IN]，点ID号
 */
-void CDijkstra::removeVecPoint(int id, vector<int> &vecU)
+void CDijkstra::removeVecPoint(int id, VecInt& vecU)
 {
-    vector<int>::iterator iter = vecU.begin();
+    VecInt::iterator iter = vecU.begin();
     while (iter != vecU.end())
     {
         if(id == *iter)
@@ -129,22 +130,29 @@ int CDijkstra::addPoint2PointDist(int idPoint1, int idPoint2, unsigned int dist)
     入参：
         idFromPoint[IN]，起始点ID号
         idDestPoint[IN]，目的点ID号
+        vecShortPath[OUT]，最短路径点号
     返回：int，2点间的最短距离
  */
-int CDijkstra::calcShortestRoute(int idFromPoint, int idDestPoint)
+int CDijkstra::calcShortestRoute(int idFromPoint, int idDestPoint, VecInt& vecShortPath)
 {
     unsigned int arrTmpDist[MAX_POINT_NUM] = {MAX_ROUTE_DIST};
 
-    // 返回计算最短路径时，需要移除的点
-    vector<int> vecIdToRemove;
     // 第1步：起始点压入源点vector，更新arrTmpDist的值
     m_vecS.push_back(idFromPoint);
     removeVecPoint(idFromPoint, m_vecU);
     arrTmpDist[idFromPoint] = 0;
-    vector<int>::iterator iter;
+    VecInt::iterator iter;
     for (iter = m_vecU.begin(); iter != m_vecU.end(); ++iter)
     {
         arrTmpDist[*iter] = m_arrRoute[idFromPoint][*iter];
+        if (MAX_ROUTE_DIST == arrTmpDist[*iter])
+        {
+            m_arrPrev[*iter] = -1;
+        }
+        else
+        {
+            m_arrPrev[*iter] = idFromPoint;
+        }
     }
     unsigned int minValue = MAX_ROUTE_DIST;
     int idMinPoint = MAX_POINT_NUM;
@@ -168,7 +176,7 @@ int CDijkstra::calcShortestRoute(int idFromPoint, int idDestPoint)
                 break;
             }
         }
-        
+
         // 第3步：以点k为考虑点，修改arrTmpDist中的值，若经k到该点的值小于原值，则更新值
         m_vecS.push_back(idMinPoint);
         removeVecPoint(idMinPoint, m_vecU);
@@ -178,13 +186,61 @@ int CDijkstra::calcShortestRoute(int idFromPoint, int idDestPoint)
             if ((MAX_ROUTE_DIST != uiRouteValue) &&(minValue + uiRouteValue) < arrTmpDist[*iter])
             {
                 arrTmpDist[*iter] = (minValue + uiRouteValue);
-            }
-            else if(MAX_ROUTE_DIST != uiRouteValue)
-            {
-                vecIdToRemove.push_back(*iter);
+                m_arrPrev[*iter] = idMinPoint;                  // 记录前驱节点，要到节点*iter时，要先找到idMinPoint
             }
         }
     }
-    
+
+    // 获取最短节点路径
+    if (MAX_ROUTE_DIST != arrTmpDist[idDestPoint])
+    {
+        getShortPath(idFromPoint, idDestPoint, vecShortPath);
+    }
+    else
+    {
+        printf("No available route from point1=%d to point2=%d",
+                idFromPoint, idDestPoint);
+
+        vecShortPath.clear();
+    }
+
+
     return arrTmpDist[idDestPoint];
+}
+
+/*  函数名：calcShortestRoute
+    功能：获取最短路径节点，并填充到vecShortPath中
+    入参：
+        idStart[IN]，起始点ID号
+        idEnd[IN]，目的点ID号
+        vecShortPath[OUT]，最短路径点号
+    返回：无
+*/
+void CDijkstra::getShortPath(int idStart, int idEnd, VecInt& vecShortPath)
+{
+    vecShortPath.clear();
+
+    int idBefore = idEnd;
+    do
+    {
+        int idTemp = idBefore;
+
+        idBefore = m_arrPrev[idBefore];
+        if (idBefore > MAX_POINT_NUM)
+        {
+            printf("arrPrev[%d] value=%d not valid, "
+                "bigger than MAX_POINT_NUM=%d",
+                idTemp, idBefore, MAX_POINT_NUM);
+
+            return;
+        }
+
+        vecShortPath.push_back(idTemp);
+
+    } while (idBefore != idStart);
+
+    vecShortPath.push_back(idStart);
+
+    // 路径是倒序存放的，需要容器翻转
+    std::reverse(vecShortPath.begin(), vecShortPath.end());
 }

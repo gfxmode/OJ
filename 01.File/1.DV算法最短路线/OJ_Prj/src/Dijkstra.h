@@ -13,11 +13,12 @@
 
 #include <string>
 #include <vector>
-
-using namespace std;
+#include <algorithm>
 
 const int MAX_POINT_NUM = 100;
 const int MAX_ROUTE_DIST = 0xFFFFFFFF;
+
+typedef std::vector<int> VecInt;
 
 class CDijkstra
 {
@@ -47,21 +48,57 @@ public:
         入参：
             idFromPoint[IN]，起始点ID号
             idDestPoint[IN]，目的点ID号
+            vecShortPath[OUT]，最短路径点号
         返回：int，2点间的最短距离
      */
-    int calcShortestRoute(int idFromPoint, int idDestPoint);
+    int calcShortestRoute(int idFromPoint, int idDestPoint, VecInt& vecShortPath);
 
 private:
-    // 判断m_arrRoute数组中否已存在路线
+    /*  函数名：calcShortestRoute
+        功能：获取最短路径节点，并填充到vecShortPath中
+        入参：
+            idStart[IN]，起始点ID号
+            idEnd[IN]，目的点ID号
+            vecShortPath[OUT]，最短路径点号
+        返回：无
+    */
+    void getShortPath(int idStart, int idEnd, VecInt& vecShortPath);
+
+    /*  函数名：isRouteExist
+        功能：判断m_arrRoute数组中否已存在路线
+        入参：
+            id1[IN]
+            id2[IN]
+        返回：无
+    */
     bool isRouteExist(int id1, int id2);
-    // 判断m_vecU节点中是否已有id
-    bool isPointExist(int id, vector<int> &vecU);
-    // m_vecU源节点vector删除指定id的元素
-    void removeVecPoint(int id, vector<int> &vecU);
+
+    /*  函数名：isPointExist
+        功能：判断m_vecU节点中是否已有id
+        入参：
+            id[IN]，添加的id号
+            vecU[IN]，未被计算的节点集
+        返回：bool。=true，已存在；=false，不存在
+    */
+    bool isPointExist(int id, VecInt& vecU);
+
+    /*  函数名：removeVecPoint
+        功能：m_vecU源节点vector删除指定id的元素
+        入参：
+            id[IN]，添加的id号
+            vecU[IN]，未被计算的节点集
+        返回：无
+    */
+    void removeVecPoint(int id, VecInt& vecU);
+
 private:
     // 路由表
     unsigned int m_arrRoute[MAX_POINT_NUM][MAX_POINT_NUM];
+
+    // 记录前驱节点，寻找最短路径时，用于记录前驱节点
+    unsigned int m_arrPrev[MAX_POINT_NUM];
+
     // vecS，源点；vecU，未遍历的点
-    vector<int> m_vecS, m_vecU;
+    VecInt m_vecS, m_vecU;
 };
 #endif __DIJKSTRA_H_
