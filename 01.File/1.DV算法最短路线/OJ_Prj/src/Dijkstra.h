@@ -8,8 +8,8 @@
     purpose:    Dijkstra算法，计算DV算法最短距离
 *********************************************************************/
 
-#ifndef __DIJKSTRA_H_
-#define __DIJKSTRA_H_
+#ifndef __DIJKSTRA_H__
+#define __DIJKSTRA_H__
 
 #include <string>
 #include <vector>
@@ -101,4 +101,4 @@ private:
     // vecS，源点；vecU，未遍历的点
     VecInt m_vecS, m_vecU;
 };
-#endif __DIJKSTRA_H_
+#endif __DIJKSTRA_H__

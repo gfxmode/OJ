@@ -26,11 +26,44 @@ void OJTest::testCase01()
 
     int iDistance = objOJ.calcShortestRoute(1, 5, vecPath);
 
-    printf("Get shortest path distance=%d, path is:\n", iDistance);
+    printf("\nGet shortest path distance=%d, path is:\n", iDistance);
 
     VecInt::iterator iter = vecPath.begin();
     for (; iter != vecPath.end(); ++iter)
     {
         printf("%d->", *iter);
     }
-} 
+}
+
+void OJTest::testCase02()
+{
+    // 这里对Demo类进行测试，可以使用CPPUNIT_ASSERT、CPPUNIT_ASSERT_EQUAL等来断言
+    CDijkstra objOJ;
+
+    // 添加计算前，类对象需要初始化
+    objOJ.init();
+
+    // 添加路径点
+    objOJ.addPoint2PointDist(0, 4, 30);
+    objOJ.addPoint2PointDist(0, 6, 32);
+    objOJ.addPoint2PointDist(0, 2, 8);
+    objOJ.addPoint2PointDist(0, 1, 13);
+    objOJ.addPoint2PointDist(2, 3, 5);
+    objOJ.addPoint2PointDist(3, 4, 6);
+    objOJ.addPoint2PointDist(4, 5, 2);
+    objOJ.addPoint2PointDist(1, 5, 9);
+    objOJ.addPoint2PointDist(1, 6, 7);
+    objOJ.addPoint2PointDist(5, 6, 17);
+
+    VecInt vecPath;
+
+    int iDistance = objOJ.calcShortestRoute(0, 6, vecPath);
+
+    printf("\nGet shortest path distance=%d, path is:\n", iDistance);
+
+    VecInt::iterator iter = vecPath.begin();
+    for (; iter != vecPath.end(); ++iter)
+    {
+        printf("%d->", *iter);
+    }
+}

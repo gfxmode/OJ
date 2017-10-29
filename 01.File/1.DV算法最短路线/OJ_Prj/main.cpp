@@ -38,5 +38,5 @@ int main()
 
     char ccc;
     scanf( &ccc );
-    return result.wasSuccessful() ? 0 : 1;  
+    return result.wasSuccessful() ? 0 : 1;
 } 
