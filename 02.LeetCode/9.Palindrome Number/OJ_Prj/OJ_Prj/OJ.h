@@ -36,6 +36,7 @@ public:
             reverse = reverse + arrInt[i] * (int)pow((float)10, (cnt - i - 1));
         }
 
+        // int反转后，其为负数，也与传入的正数不等。故无需考虑溢出的情形
         return (reverse == x);
     }
 
