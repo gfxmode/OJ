@@ -11,7 +11,7 @@ void OJTest::testCase01()
     int pArrInt[6] = {-1, 0, 1, 2, -1, -4};
     vector<int>& vecInput = cvtArrayToVec(pArrInt, 6);
     // 初始化预期结果数据
-    int pArrExpResult[2 * 3] = {-1, 0, 1, -1, -1, 2};
+    int pArrExpResult[2 * 3] = {-1, -1, 2, -1, 0, 1};
     vector<vector<int>>& vecExpectResult = cvtDoubleArrayToVec(pArrExpResult, 2, 3);
 
     // 计算threeSum结果
