@@ -14,11 +14,6 @@ public:
 
     bool palindrome(string& s, int idxStart, int idxEnd)
     {
-        if (idxStart > idxEnd)
-        {
-            return false;
-        }
-
         size_t step = (idxEnd - idxStart) / 2;
         // 若只剩下2个字符，或1个字符，均要进行比较
         for (size_t i = 0; i <= step; ++i)
