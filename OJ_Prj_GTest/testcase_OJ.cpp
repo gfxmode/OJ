@@ -10,3 +10,4 @@ namespace
         EXPECT_EQ(1, objOJ.longestPalindrome(3));
     }
 }
+
