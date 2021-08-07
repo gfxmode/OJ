@@ -310,3 +310,5 @@ __pycache__/
 /output
 *.exe
 main.cpp
+/03.CLion-untitled/cmake-build-debug
+/03.CLion-untitled/CMakeLists.txt
